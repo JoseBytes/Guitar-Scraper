@@ -1,5 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=flat)
+![Python Version](https://img.shields.io/badge/python-%3E%3D%203.7-blue.svg)
+
 
 # Guitar Scraper
 
