@@ -68,7 +68,7 @@ def get_img(url):
     return None
 
 def get_info():
-    csv_name = 'combineguitars'
+    csv_name = 'combineguitars.csv'
     data = []
     urls = get_url()
     for url in tqdm(urls):
