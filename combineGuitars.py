@@ -7,19 +7,18 @@ def extract_desc(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
 
-    table = soup.find('table', {'style': 'width: 399px;', 'data-mce-style': 'width: 399px;', 'height': '303'})
-    if not table:
-        return None
-
+    table = soup.find('table')
     rows = table.find_all('tr')
-
-    data = {}
+    
+    info = {}
     for row in rows:
-        name = row.find('td').text.strip()
-        value = row.find('td').find_next_sibling().text.strip()
-        data[name] = value
+        cols = row.find_all('td')
+        if len(cols) == 2:
+            key = cols[0].text.strip()
+            value = cols[1].text.strip()
+            info[key] = value
 
-    return data
+    return info
 
 def get_num_page():
     url = "https://combineguitars.com/collections/diy-guitar-kits"
