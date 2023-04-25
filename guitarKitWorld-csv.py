@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 from tqdm import tqdm
+import os
 
 
 def get_num_pages():
@@ -12,7 +13,6 @@ def get_num_pages():
     pagination = soup.find("ul", {"class": "pagination--inner"})
     last_page = int(pagination.find_all("a")[-2].text) if pagination else 1
     return last_page
-
 
 def get_url():
     url_main = "https://guitarkitworld.com"
@@ -32,7 +32,6 @@ def get_url():
             data.append(product_url)
     return data
 
-
 def extract_feature(soup, label):
     tag = soup.find(lambda tag: tag.name == "li" and label in tag.text)
     if tag and tag.strong:
@@ -40,6 +39,18 @@ def extract_feature(soup, label):
     else:
         return None
 
+# download image(new)
+def save_image(img_url, title):
+    # create directory if not exists
+    if not os.path.exists("guitarworld"):
+        os.makedirs("guitarworld")
+
+    response = requests.get(img_url)
+    title = re.sub(r'[^\w\s\-.)(]', '', title).strip() # substr
+    image_path = os.path.join("guitarworld", title + ".jpg")
+    with open(image_path, "wb") as f:
+        f.write(response.content)
+    print(f"Image saved: {title}")
 
 def get_info():
     csv_name = "guitarKitWorld.csv"
@@ -84,14 +95,15 @@ def get_info():
             "Hardware Set Finish": extract_feature(soup, "Hardware Set Finish"),
             "Price": price
         }
-
+        
         data.append(row)
+        
+        save_image(img_url, title) #download imagen (new)
 
     df = pd.DataFrame(data)
     df.to_csv(csv_name, index=False)
     print(f"CSV: {csv_name}")
 
     return data
-
 
 get_info()
