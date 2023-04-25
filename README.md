@@ -9,7 +9,7 @@ This Python script allows you to extract guitar information and save it to a CSV
 ## Requirements
 
  - Python >= 3.7
- - Libraries: **requests, BeautifulSoup, pandas, tqdm**
+ - Libraries: **requests, BeautifulSoup, pandas, tqdm, os**
  - In case of using the Script with the Google Sheets API:
    **google-auth, google-auth-oauthlib, google-auth-httplib2**
 
