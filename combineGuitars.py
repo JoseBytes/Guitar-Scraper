@@ -2,6 +2,19 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tqdm import tqdm
+import os
+
+#download Image(new)
+def save_image(img_url, title):
+    # create directory if not exists
+    if not os.path.exists("combine"):
+        os.makedirs("combine")
+        
+    response = requests.get(img_url)
+    image_path = os.path.join("combine", title + ".jpg")
+    with open(image_path, "wb") as f:
+        f.write(response.content)
+    print(f"Image saved: {title}")
 
 def extract_desc(url):
     page = requests.get(url)
@@ -97,6 +110,7 @@ def get_info():
             }
 
             data.append(row)
+            save_image(img_url, title) #download imagen (new)
 
     df = pd.DataFrame(data)
     df.to_csv(csv_name, index=False)
