@@ -38,6 +38,8 @@ The script generates a CSV file with the following information for each guitar f
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | https://..... | https://..... | T-Style 12-String | Right Handed | Bolt-On | maples | Bone | maples | 21 | 25.5" | Solid Body | Basswood | S-S | None | Chrome | $299.00 |
 
+![App Screenshot](https://github.com/JoseBytes/Guitar-Scraper/blob/main/img/result_download.png)
+
 ## Information
 
 This script was developed by [Jose Lujan](https://github.com/JoseBytes).
