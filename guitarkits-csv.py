@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 from tqdm import tqdm
-
+import os
 
 def extract_feature(soup, feature):
     pattern = re.compile(f"{feature}:\\s*(.*)")
@@ -40,6 +40,15 @@ def extract_price(soup):
     else:
         return None
 
+# download image(new)
+def save_image(image_url, model_name):
+    if not os.path.exists("guitarKit"):
+        os.makedirs("guitarKit")
+    filename = os.path.join("guitarKit", f"{model_name}.jpg")
+    response = requests.get(image_url)
+    with open(filename, "wb") as f:
+        f.write(response.content)
+    print(f"Saved image: {filename}")
 
 def get_info():
     csv_name = "guitarKit.csv"
@@ -75,6 +84,8 @@ def get_info():
                 "Pickguard": extract_feature(description, "Pickguard"),
                 "Price": extract_price(soup),
             }
+            save_image(row["Image"], row["Model"]) #download imge(new)
+            
             product_info.append(row)
 
     df = pd.DataFrame(product_info)
@@ -82,6 +93,5 @@ def get_info():
     print(f"CSV: {csv_name}")
 
     return product_info
-
 
 get_info()
